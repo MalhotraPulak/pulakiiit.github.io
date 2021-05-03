@@ -1,14 +1,17 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>Tags on Pulak M.</title>
+		<title>Tags on Ionia</title>
 		<link>https://pulakiiit.github.io/tags/</link>
-		<description>Recent content in Tags on pulakiiit.github.io</description>
+		<description>Recent content in Tags </description>
 		<generator>Hugo -- gohugo.io</generator>
-		<language>en-us</language>
 		
-		<atom:link href="https://pulakiiit.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
+  		<language>en-us</language>
 		
+		<managingEditor>Page(/tags) (Pulak Malhotra)</managingEditor>
+    	
+  		<lastBuildDate>Mon, 03 May 2021 13:48:43 +0530</lastBuildDate>
+		
+		<atom:link href="/tags/" rel="self" type="application/rss+xml" />
 		
 	</channel>
 </rss>

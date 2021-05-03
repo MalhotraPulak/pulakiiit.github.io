@@ -1,14 +1,15 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
 	<channel>
-		<title>Series on Pulak M.</title>
+		<title>Series on Ionia</title>
 		<link>https://pulakiiit.github.io/series/</link>
-		<description>Recent content in Series on pulakiiit.github.io</description>
+		<description>Recent content in Series </description>
 		<generator>Hugo -- gohugo.io</generator>
-		<language>en-us</language>
 		
-		<atom:link href="https://pulakiiit.github.io/series/index.xml" rel="self" type="application/rss+xml" />
+  		<language>en-us</language>
 		
+		<managingEditor>Page(/series) (Pulak Malhotra)</managingEditor>
+    	
+		<atom:link href="/series/" rel="self" type="application/rss+xml" />
 		
 	</channel>
 </rss>
