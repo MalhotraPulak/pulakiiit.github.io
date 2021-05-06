@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+<title>Safe Linking</title>
+
+  <meta name="description" content="CSE undergraduate at IIITH" />
+
+
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://pulakiiit.github.io/index.xml"
+  title="Ionia"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Safe Linking"/>
+<meta name="twitter:description" content="What is Glibc? From the gnu website:
+The GNU C Library project provides the core libraries for the GNU system and GNU/Linux systems, as well as many other systems that use Linux as the kernel. These libraries provide critical APIs including ISO C11, POSIX.1-2008, BSD, OS-specific APIs and more. These APIs include such foundational facilities as open, read, write, malloc, printf, getaddrinfo, dlopen, pthread_create, crypt, login, exit and more.
+Glibc manages the heap allocation from the malloc() and free() calls."/>
+
+
+  <meta property="og:title" content="Safe Linking" />
+<meta property="og:description" content="What is Glibc? From the gnu website:
+The GNU C Library project provides the core libraries for the GNU system and GNU/Linux systems, as well as many other systems that use Linux as the kernel. These libraries provide critical APIs including ISO C11, POSIX.1-2008, BSD, OS-specific APIs and more. These APIs include such foundational facilities as open, read, write, malloc, printf, getaddrinfo, dlopen, pthread_create, crypt, login, exit and more.
+Glibc manages the heap allocation from the malloc() and free() calls." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pulakiiit.github.io/posts/safe-linking/" />
+<meta property="article:published_time" content="2021-05-06T21:26:16+05:30" />
+<meta property="article:modified_time" content="2021-05-06T21:26:16+05:30" />
+
+
+
+<link rel="stylesheet" href="https://pulakiiit.github.io/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://pulakiiit.github.io/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://pulakiiit.github.io/js/main.bundle.js"></script>
+<script src="https://pulakiiit.github.io/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.78.2" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://pulakiiit.github.io/" class="nav-logo">
+        <img
+          src="https://pulakiiit.github.io/images/ng_black.png"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="../../about/" id="About"
+              ><em class="far fa-user-circle fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="../../tags" id="Tags"
+              ><em class="fas fa-tags fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+    <div class="intro-header">
+      <div class="container">
+        <div class="posts-heading">
+          
+            <h1>
+              Safe Linking
+            </h1>
+          
+          
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#what-is-glibc">What is Glibc?</a></li>
+    <li><a href="#what-is-safe-linking">What is safe linking?</a></li>
+    <li><a href="#safe-linking-in-rizin">Safe Linking in Rizin</a></li>
+  </ul>
+</nav><h2 id="what-is-glibc">What is Glibc?</h2>
+<p>From the gnu <a href="https://www.gnu.org/software/libc/#:~:text=What%20is%20glibc%3F,OS%2Dspecific%20APIs%20and%20more.">website</a>:<br>
+<em>The GNU C Library project provides the core libraries for the GNU system and GNU/Linux systems, as well as many other systems that use Linux as the kernel. These libraries provide critical APIs including ISO C11, POSIX.1-2008, BSD, OS-specific APIs and more. These APIs include such foundational facilities as open, read, write, malloc, printf, getaddrinfo, dlopen, pthread_create, crypt, login, exit and more.</em><br>
+Glibc manages the heap allocation from the malloc() and free() calls. This is the part that I am going to focus on.</p>
+<h2 id="what-is-safe-linking">What is safe linking?</h2>
+<p>If we look at source code of <code>malloc.c</code> in the <code>malloc</code> folder in Glibc version 2.32 we see the following code.</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#888">/* Safe-Linking:
+</span><span style="color:#888">   Use randomness from ASLR (mmap_base) to protect single-linked lists
+</span><span style="color:#888">   of Fast-Bins and TCache.  That is, mask the &#34;next&#34; pointers of the
+</span><span style="color:#888">   lists&#39; chunks, and also perform allocation alignment checks on them.
+</span><span style="color:#888">   This mechanism reduces the risk of pointer hijacking, as was done with
+</span><span style="color:#888">   Safe-Unlinking in the double-linked lists of Small-Bins.
+</span><span style="color:#888">   It assumes a minimum page size of 4096 bytes (12 bits).  Systems with
+</span><span style="color:#888">   larger pages provide less entropy, although the pointer mangling
+</span><span style="color:#888">   still works.  */</span>
+<span style="color:#579">#define PROTECT_PTR(pos, ptr) \
+</span><span style="color:#579">  ((__typeof (ptr)) ((((size_t) pos) &gt;&gt; 12) ^ ((size_t) ptr)))
+</span><span style="color:#579">#define REVEAL_PTR(ptr)  PROTECT_PTR (&amp;ptr, ptr)
+</span></code></pre></div><p>If we look at the usage of this protection we observe:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#080;font-weight:bold">static</span> __always_inline <span style="color:#339;font-weight:bold">void</span>
+<span style="color:#06b;font-weight:bold">tcache_put</span> (mchunkptr chunk, size_t tc_idx)
+{
+  tcache_entry <span style="color:#333">*</span>e <span style="color:#333">=</span> (tcache_entry <span style="color:#333">*</span>) chunk2mem (chunk);
+
+  <span style="color:#888">/* Mark this chunk as &#34;in the tcache&#34; so the test in _int_free will
+</span><span style="color:#888">     detect a double free.  */</span>
+  e<span style="color:#333">-&gt;</span>key <span style="color:#333">=</span> tcache;
+
+  e<span style="color:#333">-&gt;</span>next <span style="color:#333">=</span> PROTECT_PTR (<span style="color:#333">&amp;</span>e<span style="color:#333">-&gt;</span>next, tcache<span style="color:#333">-&gt;</span>entries[tc_idx]);
+  tcache<span style="color:#333">-&gt;</span>entries[tc_idx] <span style="color:#333">=</span> e;
+  <span style="color:#333">++</span>(tcache<span style="color:#333">-&gt;</span>counts[tc_idx]);
+}
+</code></pre></div><div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">    <span style="color:#080;font-weight:bold">if</span> (SINGLE_THREAD_P)
+      {
+	<span style="color:#888">/* Check that the top of the bin is not the record we are going to
+</span><span style="color:#888">	   add (i.e., double free).  */</span>
+	<span style="color:#080;font-weight:bold">if</span> (__builtin_expect (old <span style="color:#333">==</span> p, <span style="color:#00d;font-weight:bold">0</span>))
+	  malloc_printerr (<span style="background-color:#fff0f0">&#34;double free or corruption (fasttop)&#34;</span>);
+	p<span style="color:#333">-&gt;</span>fd <span style="color:#333">=</span> PROTECT_PTR (<span style="color:#333">&amp;</span>p<span style="color:#333">-&gt;</span>fd, old);
+	<span style="color:#333">*</span>fb <span style="color:#333">=</span> p;
+      }
+    <span style="color:#080;font-weight:bold">else</span>
+      <span style="color:#080;font-weight:bold">do</span>
+	{
+	  <span style="color:#888">/* Check that the top of the bin is not the record we are going to
+</span><span style="color:#888">	     add (i.e., double free).  */</span>
+	  <span style="color:#080;font-weight:bold">if</span> (__builtin_expect (old <span style="color:#333">==</span> p, <span style="color:#00d;font-weight:bold">0</span>))
+	    malloc_printerr (<span style="background-color:#fff0f0">&#34;double free or corruption (fasttop)&#34;</span>);
+	  old2 <span style="color:#333">=</span> old;
+	  p<span style="color:#333">-&gt;</span>fd <span style="color:#333">=</span> PROTECT_PTR (<span style="color:#333">&amp;</span>p<span style="color:#333">-&gt;</span>fd, old);
+	}
+      <span style="color:#080;font-weight:bold">while</span> ((old <span style="color:#333">=</span> catomic_compare_and_exchange_val_rel (fb, p, old2))
+	     <span style="color:#333">!=</span> old2);
+</code></pre></div><p>Safe linking is a way to encrypt the <code>fd</code> pointer of single linked list bins of tcache and fastbin. The pointer <code>fd</code> is XOR&rsquo;d after right shifting 12 times the memory location of the pointer. Since this is an XOR operation we can do the same operation again to get the original <code>fd</code> pointer back.</p>
+<h2 id="safe-linking-in-rizin">Safe Linking in Rizin</h2>
+<p>In Rizin till now, an option <code>dbg.glibc.demangle</code> is used to determine whether rizin will decrypt/demangle the pointer or not. The default value of this option was <code>false</code> which is fine for Glibc &lt; <code>2.32</code>. For Glibc &gt;= <code>2.32</code>, this would produce the wrong output if the option is not changed to <code>true</code>. My pull request resolves this by demangling automatically for Glibc &lt; <code>2.32</code>.<br>
+This function was already present in the rizin codebase which I used:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#080;font-weight:bold">static</span> <span style="color:#080;font-weight:bold">inline</span> GHT <span style="color:#06b;font-weight:bold">GH</span>(get_next_pointer)(RzCore <span style="color:#333">*</span>core, GHT pos, GHT next) {
+	<span style="color:#080;font-weight:bold">return</span> (core<span style="color:#333">-&gt;</span>dbg<span style="color:#333">-&gt;</span>glibc_version <span style="color:#333">&lt;</span> <span style="color:#00d;font-weight:bold">232</span>) <span style="color:#333">?</span> <span style="color:#970;font-weight:bold">next</span> : PROTECT_PTR(pos, next);
+}
+</code></pre></div><p>Also I removed the <code>dbg.glibc.demangle</code> option as it was no longer needed.<br>
+Here is the referenced <a href="https://github.com/rizinorg/rizin/pull/1105">pull request</a></p>
+
+
+
+      
+    </article>
+    
+      <script>
+  document.addEventListener('scroll', function () {
+    if (
+      document.body.scrollTop > 50 ||
+      document.documentElement.scrollTop > 50
+    ) {
+      document.getElementById('backtotopButton').style.opacity = '1'
+      document.getElementById('backtotopButton').style.transition = '0.5s'
+    } else {
+      document.getElementById('backtotopButton').style.opacity = '0'
+      document.getElementById('backtotopButton').style.transition = '0.5s'
+    }
+  })
+
+  function topFunction() {
+    document.body.scrollTop = 0 
+    document.documentElement.scrollTop = 0 
+  }
+</script>
+
+      <button onclick="topFunction()" id="backtotopButton">
+        <em class="fa fa-angle-up"></em>
+      </button>
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="https://github.com/PulakIIIT" name="Github">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&ndash;&nbsp;
+      <a href="mailto:pulakmalhotra2000@gmail.com" name="Email">
+        <em class="fas fa-envelope-square"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://pulakiiit.github.io/about">Pulak Malhotra</a>
+      &nbsp;&copy;
+      2021
+      
+        &nbsp;/&nbsp;
+        <a href="https://pulakiiit.github.io/">Ionia</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
