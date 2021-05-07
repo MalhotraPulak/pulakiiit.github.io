@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+<title>Compiling heap allocators for different platforms</title>
+
+  <meta name="description" content="CSE undergraduate at IIITH" />
+
+
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://pulakiiit.github.io/index.xml"
+  title="Ionia"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Compiling heap allocators for different platforms"/>
+<meta name="twitter:description" content="Heap allocators are the softwares which handle the calls like malloc() and free(). The default heap allocator on Linux is Glibc (Glibc does many other functions as well). Alternative heap allocators like Jemalloc, Tcmalloc and Mac heap are also used by different platforms. Rizin has 3 parsers. For Glibc, Jemalloc and Tcmalloc so we can analyze what is going on in the heap when a binary is running.
+The issue #157 in Rizin describes that the heap allocator is defined at compile time."/>
+
+
+  <meta property="og:title" content="Compiling heap allocators for different platforms" />
+<meta property="og:description" content="Heap allocators are the softwares which handle the calls like malloc() and free(). The default heap allocator on Linux is Glibc (Glibc does many other functions as well). Alternative heap allocators like Jemalloc, Tcmalloc and Mac heap are also used by different platforms. Rizin has 3 parsers. For Glibc, Jemalloc and Tcmalloc so we can analyze what is going on in the heap when a binary is running.
+The issue #157 in Rizin describes that the heap allocator is defined at compile time." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pulakiiit.github.io/posts/cross-platform/" />
+<meta property="article:published_time" content="2021-05-07T21:03:13+05:30" />
+<meta property="article:modified_time" content="2021-05-07T21:03:13+05:30" />
+
+
+
+<link rel="stylesheet" href="https://pulakiiit.github.io/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://pulakiiit.github.io/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://pulakiiit.github.io/js/main.bundle.js"></script>
+<script src="https://pulakiiit.github.io/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.78.2" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://pulakiiit.github.io/" class="nav-logo">
+        <img
+          src="https://pulakiiit.github.io/images/ng_black.png"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="../../about/" id="About"
+              ><em class="far fa-user-circle fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="../../tags" id="Tags"
+              ><em class="fas fa-tags fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+    <div class="intro-header">
+      <div class="container">
+        <div class="posts-heading">
+          
+            <h1>
+              Compiling heap allocators for different platforms
+            </h1>
+          
+          
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <p>Heap allocators are the softwares which handle the calls like malloc() and free(). The default heap allocator on Linux is Glibc (Glibc does many other functions as well). Alternative heap allocators like Jemalloc, Tcmalloc and Mac heap are also used by different platforms. Rizin has 3 parsers. For Glibc, Jemalloc and Tcmalloc so we can analyze what is going on in the heap when a binary is running.</p>
+<p>The issue <a href="https://github.com/rizinorg/rizin/issues/157">#157</a> in Rizin describes that the heap allocator is defined at compile time. For instance, if we compile Rizin on Linux, it will detect that Glibc is available on Linux and compile code for parsing the same. We will not be able to parse a Jemalloc runtime binary with the Linux compiled Rizin.<br>
+We can see the conditional compilation in <code>cmd_debug.c</code> file:</p>
+<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C"><span style="color:#579">#if __linux__ &amp;&amp; __GNU_LIBRARY__ &amp;&amp; __GLIBC__ &amp;&amp; __GLIBC_MINOR__
+</span><span style="color:#579">#include</span> <span style="color:#579">&#34;rz_heap_glibc.h&#34;</span><span style="color:#579">
+</span><span style="color:#579">#endif
+</span><span style="color:#579"></span>
+<span style="color:#579">#if HAVE_JEMALLOC
+</span><span style="color:#579">#include</span> <span style="color:#579">&#34;rz_heap_jemalloc.h&#34;</span><span style="color:#579">
+</span><span style="color:#579">#include</span> <span style="color:#579">&#34;linux_heap_jemalloc.c&#34;</span><span style="color:#579">
+</span><span style="color:#579">#if __WINDOWS__
+</span><span style="color:#579">#include</span> <span style="color:#579">&#34;windows_heap.c&#34;</span><span style="color:#579">
+</span><span style="color:#579">#endif
+</span><span style="color:#579"></span>.....
+<span style="color:#579">#if __linux__ &amp;&amp; __GNU_LIBRARY__ &amp;&amp; __GLIBC__ &amp;&amp; __GLIBC_MINOR__
+</span><span style="color:#579"></span>
+<span style="color:#080;font-weight:bold">static</span> <span style="color:#339;font-weight:bold">int</span> cmd_dbg_map_heap_glibc_32(RzCore <span style="color:#333">*</span>core, <span style="color:#080;font-weight:bold">const</span> <span style="color:#339;font-weight:bold">char</span> <span style="color:#333">*</span>input);
+<span style="color:#080;font-weight:bold">static</span> <span style="color:#339;font-weight:bold">int</span> <span style="color:#06b;font-weight:bold">cmd_dbg_map_heap_glibc_64</span>(RzCore <span style="color:#333">*</span>core, <span style="color:#080;font-weight:bold">const</span> <span style="color:#339;font-weight:bold">char</span> <span style="color:#333">*</span>input);
+<span style="color:#579">#endif </span><span style="color:#888">// __linux__ &amp;&amp; __GNU_LIBRARY__ &amp;&amp; __GLIBC__ &amp;&amp; __GLIBC_MINOR__
+</span><span style="color:#888"></span><span style="color:#579">#if __WINDOWS__
+</span><span style="color:#579"></span><span style="color:#080;font-weight:bold">static</span> <span style="color:#339;font-weight:bold">int</span> <span style="color:#06b;font-weight:bold">cmd_debug_map_heap_win</span>(RzCore <span style="color:#333">*</span>core, <span style="color:#080;font-weight:bold">const</span> <span style="color:#339;font-weight:bold">char</span> <span style="color:#333">*</span>input);
+<span style="color:#579">#endif </span><span style="color:#888">// __WINDOWS__
+</span><span style="color:#888"></span>....
+<span style="color:#080;font-weight:bold">const</span> <span style="color:#339;font-weight:bold">char</span> <span style="color:#333">*</span>m <span style="color:#333">=</span> rz_config_get(core<span style="color:#333">-&gt;</span>config, <span style="background-color:#fff0f0">&#34;dbg.malloc&#34;</span>);
+	<span style="color:#080;font-weight:bold">if</span> (m <span style="color:#333">&amp;&amp;</span> <span style="color:#333">!</span>strcmp(<span style="background-color:#fff0f0">&#34;glibc&#34;</span>, m)) {
+<span style="color:#579">#if __linux__ &amp;&amp; __GNU_LIBRARY__ &amp;&amp; __GLIBC__ &amp;&amp; __GLIBC_MINOR__
+</span><span style="color:#579"></span>		<span style="color:#080;font-weight:bold">if</span> (core<span style="color:#333">-&gt;</span>rasm<span style="color:#333">-&gt;</span>bits <span style="color:#333">==</span> <span style="color:#00d;font-weight:bold">64</span>) {
+			cmd_dbg_map_heap_glibc_64(core, input <span style="color:#333">+</span> <span style="color:#00d;font-weight:bold">1</span>);
+		} <span style="color:#080;font-weight:bold">else</span> {
+			cmd_dbg_map_heap_glibc_32(core, input <span style="color:#333">+</span> <span style="color:#00d;font-weight:bold">1</span>);
+		}
+<span style="color:#579">#else
+</span><span style="color:#579"></span>		eprintf(<span style="background-color:#fff0f0">&#34;glibc not supported for this platform</span><span style="color:#666;background-color:#fff0f0;font-weight:bold">\n</span><span style="background-color:#fff0f0">&#34;</span>);
+<span style="color:#579">#endif
+</span><span style="color:#579">#if HAVE_JEMALLOC
+</span><span style="color:#579"></span>	} <span style="color:#080;font-weight:bold">else</span> <span style="color:#080;font-weight:bold">if</span> (m <span style="color:#333">&amp;&amp;</span> <span style="color:#333">!</span>strcmp(<span style="background-color:#fff0f0">&#34;jemalloc&#34;</span>, m)) {
+		<span style="color:#080;font-weight:bold">if</span> (core<span style="color:#333">-&gt;</span>rasm<span style="color:#333">-&gt;</span>bits <span style="color:#333">==</span> <span style="color:#00d;font-weight:bold">64</span>) {
+			cmd_dbg_map_jemalloc_64(core, input <span style="color:#333">+</span> <span style="color:#00d;font-weight:bold">1</span>);
+		} <span style="color:#080;font-weight:bold">else</span> {
+			cmd_dbg_map_jemalloc_32(core, input <span style="color:#333">+</span> <span style="color:#00d;font-weight:bold">1</span>);
+		}
+<span style="color:#579">#endif
+</span><span style="color:#579"></span>	} <span style="color:#080;font-weight:bold">else</span> {
+<span style="color:#579">#if __WINDOWS__
+</span><span style="color:#579"></span>		cmd_debug_map_heap_win(core, input <span style="color:#333">+</span> <span style="color:#00d;font-weight:bold">1</span>);
+<span style="color:#579">#else
+</span><span style="color:#579"></span>		eprintf(<span style="background-color:#fff0f0">&#34;MALLOC algorithm not supported</span><span style="color:#666;background-color:#fff0f0;font-weight:bold">\n</span><span style="background-color:#fff0f0">&#34;</span>);
+		<span style="color:#080;font-weight:bold">return</span> <span style="color:#007020">false</span>;
+<span style="color:#579">#endif
+</span><span style="color:#579"></span>	}
+</code></pre></div><p>Firstly, I remove all these preprocessing directives to enable compilation of Glibc and Jemalloc for all platforms. Windows heap cannot be compiled on other platforms since it requires some windows specific headers.<br>
+Then I added support for <code>dbg.malloc</code> option with which we can set to <code>jemalloc</code>, <code>glibc</code> or <code>windows</code> to enable the heap allocator we require.<br>
+With this change, if we have memory maps of Linux binary running on Linux, we can load them with <code>om</code> command and analyze them on MacOS or Windows.<br>
+Here is my <a href="https://github.com/rizinorg/rizin/pull/1109">PR</a>.<br>
+Later I will refactor this code even more so Rizin can support heap analysis with remote debugging and also Rizin should automatically detect the heap allocator and use it.</p>
+
+
+
+
+      
+    </article>
+    
+      <script>
+  document.addEventListener('scroll', function () {
+    if (
+      document.body.scrollTop > 50 ||
+      document.documentElement.scrollTop > 50
+    ) {
+      document.getElementById('backtotopButton').style.opacity = '1'
+      document.getElementById('backtotopButton').style.transition = '0.5s'
+    } else {
+      document.getElementById('backtotopButton').style.opacity = '0'
+      document.getElementById('backtotopButton').style.transition = '0.5s'
+    }
+  })
+
+  function topFunction() {
+    document.body.scrollTop = 0 
+    document.documentElement.scrollTop = 0 
+  }
+</script>
+
+      <button onclick="topFunction()" id="backtotopButton">
+        <em class="fa fa-angle-up"></em>
+      </button>
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="https://github.com/PulakIIIT" name="Github">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&ndash;&nbsp;
+      <a href="mailto:pulakmalhotra2000@gmail.com" name="Email">
+        <em class="fas fa-envelope-square"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://pulakiiit.github.io/about">Pulak Malhotra</a>
+      &nbsp;&copy;
+      2021
+      
+        &nbsp;/&nbsp;
+        <a href="https://pulakiiit.github.io/">Ionia</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
