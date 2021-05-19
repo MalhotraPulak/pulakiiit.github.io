@@ -29,7 +29,7 @@
 <meta property="og:description" content="CSE undergraduate at IIITH" />
 <meta property="og:type" content="website" />
 <meta property="og:url" content="https://pulakiiit.github.io/" />
-<meta property="og:updated_time" content="2021-05-06T21:26:16+05:30" />
+<meta property="og:updated_time" content="2021-05-19T14:56:11+05:30" />
 
 
 
@@ -121,6 +121,32 @@
       
         
         
+
+      
+        <article class="post-preview">
+  <a href="https://pulakiiit.github.io/posts/reopen-bug/">
+    <h2 class="post-title">Location of main arena</h2>
+  </a>
+  <div class="post-entry">
+    
+      <p>Address space layout randomization (ASLR) is a computer security technique that randomly arranges the address space positions of key data areas of a process. Base address of heap is randomized which leads to different address for the main arena each time we execute a binary.
+This property led to a bug in Rizin. ood command reopens the current file in debugging mode. The bug could be reproduced as follows:
+ Open a file in debug mode Set a breakpoint and run the program Run any heap command like dmha Run ood to open the file in debug mode again Run till that breakpoint again Use any heap command like dmha  When you run the heap command for second time you will get incorrect output.</p>
+      <a href="https://pulakiiit.github.io/posts/reopen-bug/" class="post-read-more"
+        >Read More</a
+      >
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;May 19, 2021
+  
+</span>
+
+  </div>
+</article>
 
       
         <article class="post-preview">
