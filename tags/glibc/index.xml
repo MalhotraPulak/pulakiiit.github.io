@@ -1,0 +1,17 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>glibc on Ionia</title>
+		<link>https://pulakiiit.github.io/tags/glibc/</link>
+		<description>Recent content in glibc </description>
+		<generator>Hugo -- gohugo.io</generator>
+		
+  		<language>en-us</language>
+		
+		<managingEditor>Page(/tags/glibc) (Pulak Malhotra)</managingEditor>
+    	
+  		<lastBuildDate>Thu, 06 May 2021 21:26:16 +0530</lastBuildDate>
+		
+		<atom:link href="/tags/glibc/" rel="self" type="application/rss+xml" />
+		
+	</channel>
+</rss>

@@ -2,7 +2,7 @@
 <html lang="en-us">
   <head>
     <meta charset="utf-8" />
-<title>systems</title>
+<title>glibc</title>
 
   <meta name="description" content="CSE undergraduate at IIITH" />
 
@@ -21,15 +21,15 @@
   title="Ionia"
 />
 <meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="systems"/>
+<meta name="twitter:title" content="glibc"/>
 <meta name="twitter:description" content="CSE undergraduate at IIITH"/>
 
 
-  <meta property="og:title" content="systems" />
+  <meta property="og:title" content="glibc" />
 <meta property="og:description" content="CSE undergraduate at IIITH" />
 <meta property="og:type" content="website" />
-<meta property="og:url" content="https://pulakiiit.github.io/tags/systems/" />
-<meta property="og:updated_time" content="2021-05-19T14:56:11+05:30" />
+<meta property="og:url" content="https://pulakiiit.github.io/tags/glibc/" />
+<meta property="og:updated_time" content="2021-05-06T21:26:16+05:30" />
 
 
 
@@ -103,7 +103,7 @@
         <div class="tags-heading">
           
             <h1>
-              systems
+              glibc
             </h1>
           
           
@@ -122,15 +122,15 @@
 
       
         <article class="post-preview">
-  <a href="https://pulakiiit.github.io/posts/reopen-bug/">
-    <h2 class="post-title">Location of main arena</h2>
+  <a href="https://pulakiiit.github.io/posts/safe-linking/">
+    <h2 class="post-title">Safe Linking</h2>
   </a>
   <div class="post-entry">
     
-      <p>Address space layout randomization (ASLR) is a computer security technique that randomly arranges the address space positions of key data areas of a process. Base address of heap is randomized which leads to different address for the main arena each time we execute a binary.
-This property led to a bug in Rizin. ood command reopens the current file in debugging mode. The bug could be reproduced as follows:
- Open a file in debug mode Set a breakpoint and run the program Run any heap command like dmha Run ood to open the file in debug mode again Run till that breakpoint again Use any heap command like dmha  When you run the heap command for second time you will get incorrect output.</p>
-      <a href="https://pulakiiit.github.io/posts/reopen-bug/" class="post-read-more"
+      <p>What is Glibc? From the gnu website:
+The GNU C Library project provides the core libraries for the GNU system and GNU/Linux systems, as well as many other systems that use Linux as the kernel. These libraries provide critical APIs including ISO C11, POSIX.1-2008, BSD, OS-specific APIs and more. These APIs include such foundational facilities as open, read, write, malloc, printf, getaddrinfo, dlopen, pthread_create, crypt, login, exit and more.
+Glibc manages the heap allocation from the malloc() and free() calls.</p>
+      <a href="https://pulakiiit.github.io/posts/safe-linking/" class="post-read-more"
         >Read More</a
       >
     
@@ -139,7 +139,7 @@ This property led to a bug in Rizin. ood command reopens the current file in deb
   <div class="postmeta">
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
-  >&nbsp;May 19, 2021
+  >&nbsp;May 6, 2021
   
 </span>
 
