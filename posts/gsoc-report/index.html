@@ -117,14 +117,30 @@
     
   <div class="container" role="main">
     <article class="article" class="blog-post">
-      
-  <h3 id="google-summer-of-code-2021">Google Summer of Code 2021</h3>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#google-summer-of-code-2021">Google Summer of Code 2021</a>
+      <ul>
+        <li><a href="#roadmap">Roadmap</a></li>
+        <li><a href="#glibc-heap-commands-improvements">Glibc Heap commands improvements</a></li>
+        <li><a href="#cutter-heap-widget">Cutter Heap Widget</a></li>
+        <li><a href="#windows-heap-widget">Windows Heap Widget</a></li>
+        <li><a href="#updates-to-types-widget-in-cutter">Updates to <code>Types</code> widget in Cutter</a></li>
+        <li><a href="#misc-prs">Misc. PRs</a></li>
+        <li><a href="#whats-left-to-do">What&rsquo;s left to do?</a></li>
+        <li><a href="#what-did-i-learn-during-gsoc">What did I learn during GSOC?</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav><h2 id="google-summer-of-code-2021">Google Summer of Code 2021</h2>
 <ul>
 <li>Name: Pulak Malhotra</li>
 <li>Organization: <a href="https://rizin.re/">Rizin</a></li>
 <li>Mentors: Yossizap and Megabeets</li>
 </ul>
 <p>In the summer of 2021, I was allowed to be a Google Summer of Code Intern at Rizin. GSoC was one of my first experiences working on a real-world project and I learnt and grew a lot. I would like to give my special thanks to not only my mentors Yossizap and Megabeets but also XVilka, Ret2libc, Wargio, Gustavolcr and Thestr4ng3r who were always there to answer my questions and review and give feedback for my PRs.</p>
+<h3 id="roadmap">Roadmap</h3>
+<p>Firstly I worked on improving the Rizin heap commands. I did a formatting change for most of the commands inspired by the <code>gdb gef</code> and introduced a new command <code>dmhd</code> for displaying concise information about bins in Glibc along with a more verbose version of <code>dmh</code>, the <code>dmhv</code> command. After this I spent some time refactoring the heap code to introduce Rizin API functions which I later used in Cutter. Alongside introducing the Rizin API functions I started using them in Cutter to implement the GUI widgets for the glibc heap. Once the Cutter heap widget was I done, I focused on the Windows heap allocator. After some refactoring I introduced the heap API calls for windows heap and used that in Cutter similarly to the Glibc one. During my windows heap development I had to update the <code>types</code> widget to use the new API. Some of the PRs towards the ends are yet to be merged, I intend to come back to them as the college workload reduces.</p>
 <h3 id="glibc-heap-commands-improvements">Glibc Heap commands improvements</h3>
 <ul>
 <li>Improved output of <code>dmh</code> familiy of commands and implemented brand new <code>dmhd</code> command
@@ -229,7 +245,6 @@
 
 
 
-
       
         <div class="blog-tags">
           
@@ -241,6 +256,30 @@
         </div>
       
     </article>
+    
+      <script>
+  document.addEventListener('scroll', function () {
+    if (
+      document.body.scrollTop > 50 ||
+      document.documentElement.scrollTop > 50
+    ) {
+      document.getElementById('backtotopButton').style.opacity = '1'
+      document.getElementById('backtotopButton').style.transition = '0.5s'
+    } else {
+      document.getElementById('backtotopButton').style.opacity = '0'
+      document.getElementById('backtotopButton').style.transition = '0.5s'
+    }
+  })
+
+  function topFunction() {
+    document.body.scrollTop = 0 
+    document.documentElement.scrollTop = 0 
+  }
+</script>
+
+      <button onclick="topFunction()" id="backtotopButton">
+        <em class="fa fa-angle-up"></em>
+      </button>
     
     
       
