@@ -3,22 +3,27 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://pulakiiit.github.io/posts/gsoc-report/</loc>
+    <lastmod>2021-08-17T09:53:52+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pulakiiit.github.io/</loc>
+    <lastmod>2021-08-17T09:53:52+05:30</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://pulakiiit.github.io/posts/</loc>
+    <lastmod>2021-08-17T09:53:52+05:30</lastmod>
+  </url>
+  
+  <url>
     <loc>https://pulakiiit.github.io/tags/heap/</loc>
     <lastmod>2021-05-19T14:56:11+05:30</lastmod>
   </url>
   
   <url>
-    <loc>https://pulakiiit.github.io/</loc>
-    <lastmod>2021-05-19T14:56:11+05:30</lastmod>
-  </url>
-  
-  <url>
     <loc>https://pulakiiit.github.io/posts/reopen-bug/</loc>
-    <lastmod>2021-05-19T14:56:11+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pulakiiit.github.io/posts/</loc>
     <lastmod>2021-05-19T14:56:11+05:30</lastmod>
   </url>
   

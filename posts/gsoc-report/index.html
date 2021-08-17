@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+<title>GSOC Report</title>
+
+  <meta name="description" content="CSE undergraduate at IIITH" />
+
+
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://pulakiiit.github.io/index.xml"
+  title="Ionia"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="GSOC Report"/>
+<meta name="twitter:description" content="Google Summer of Code 2021  Name: Pulak Malhotra Organization: Rizin Mentors: Yossizap and Megabeets  In the summer of 2021, I was allowed to be a Google Summer of Code Intern at Rizin. GSoC was one of my first experiences working on a real-world project and I learnt and grew a lot. I would like to give my special thanks to not only my mentors Yossizap and Megabeets but also XVilka, Ret2libc, Wargio, Gustavolcr and Thestr4ng3r who were always there to answer my questions and review and give feedback for my PRs."/>
+
+
+  <meta property="og:title" content="GSOC Report" />
+<meta property="og:description" content="Google Summer of Code 2021  Name: Pulak Malhotra Organization: Rizin Mentors: Yossizap and Megabeets  In the summer of 2021, I was allowed to be a Google Summer of Code Intern at Rizin. GSoC was one of my first experiences working on a real-world project and I learnt and grew a lot. I would like to give my special thanks to not only my mentors Yossizap and Megabeets but also XVilka, Ret2libc, Wargio, Gustavolcr and Thestr4ng3r who were always there to answer my questions and review and give feedback for my PRs." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pulakiiit.github.io/posts/gsoc-report/" />
+<meta property="article:published_time" content="2021-08-17T09:53:52+05:30" />
+<meta property="article:modified_time" content="2021-08-17T09:53:52+05:30" />
+
+
+
+<link rel="stylesheet" href="https://pulakiiit.github.io/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://pulakiiit.github.io/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://pulakiiit.github.io/js/main.bundle.js"></script>
+<script src="https://pulakiiit.github.io/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.78.2" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://pulakiiit.github.io/" class="nav-logo">
+        <img
+          src="https://pulakiiit.github.io/images/ng_black.png"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="../../about/" id="About"
+              ><em class="far fa-user-circle fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="../../tags" id="Tags"
+              ><em class="fas fa-tags fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+    <div class="intro-header">
+      <div class="container">
+        <div class="posts-heading">
+          
+            <h1>
+              GSOC Report
+            </h1>
+          
+          
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <h2 id="google-summer-of-code-2021">Google Summer of Code 2021</h2>
+<ul>
+<li>Name: Pulak Malhotra</li>
+<li>Organization: Rizin</li>
+<li>Mentors: Yossizap and Megabeets</li>
+</ul>
+<p>In the summer of 2021, I was allowed to be a Google Summer of Code Intern at Rizin. GSoC was one of my first experiences working on a real-world project and I learnt and grew a lot. I would like to give my special thanks to not only my mentors Yossizap and Megabeets but also XVilka, Ret2libc, Wargio, Gustavolcr and Thestr4ng3r who were always there to answer my questions and review and give feedback for my PRs.</p>
+<h3 id="glibc-heap-commands-improvements">Glibc Heap commands improvements</h3>
+<ul>
+<li>Improved output of <code>dmh</code> familiy of commands and implemented brand new <code>dmhd</code> command
+<ul>
+<li><a href="https://github.com/rizinorg/rizin/pull/810">https://github.com/rizinorg/rizin/pull/810</a></li>
+<li><a href="https://github.com/rizinorg/rizin/pull/912">https://github.com/rizinorg/rizin/pull/912</a></li>
+</ul>
+</li>
+<li>Large refactor of all <code>dm</code> commands and moved them to newshell
+<ul>
+<li><a href="https://github.com/rizinorg/rizin/pull/1182">https://github.com/rizinorg/rizin/pull/1182</a></li>
+</ul>
+</li>
+<li>Bug fixes for Glibc heap
+<ul>
+<li><a href="https://github.com/rizinorg/rizin/pull/1149">https://github.com/rizinorg/rizin/pull/1149</a></li>
+<li><a href="https://github.com/rizinorg/rizin/pull/1105">https://github.com/rizinorg/rizin/pull/1105</a></li>
+</ul>
+</li>
+<li>Created API for the heap widget functionality
+<ul>
+<li><a href="https://github.com/rizinorg/rizin/pull/1279">https://github.com/rizinorg/rizin/pull/1279</a></li>
+<li><a href="https://github.com/rizinorg/rizin/pull/1242">https://github.com/rizinorg/rizin/pull/1242</a></li>
+<li><a href="https://github.com/rizinorg/rizin/pull/1224">https://github.com/rizinorg/rizin/pull/1224</a>
+<img src="../../images/newdmh.png" alt="New dmh"></li>
+</ul>
+</li>
+</ul>
+<h3 id="cutter-heap-widget">Cutter Heap Widget</h3>
+<ul>
+<li>Implemented a GUI for Glibc Heap commands as the Cutter heap widget
+<ul>
+<li><a href="https://github.com/rizinorg/cutter/pull/2705">https://github.com/rizinorg/cutter/pull/2705</a></li>
+<li><a href="https://github.com/rizinorg/cutter/pull/2710">https://github.com/rizinorg/cutter/pull/2710</a></li>
+<li><a href="https://github.com/rizinorg/cutter/pull/2716">https://github.com/rizinorg/cutter/pull/2716</a>
+<img src="../../images/heapwidget.png" alt="New dmh">
+<img src="../../images/heapwidget-2.png" alt="New dmh"></li>
+</ul>
+</li>
+</ul>
+<h3 id="windows-heap-widget">Windows Heap Widget</h3>
+<ul>
+<li>Implemented an API in Rizin
+<ul>
+<li><a href="https://github.com/rizinorg/rizin/pull/1386">https://github.com/rizinorg/rizin/pull/1386</a></li>
+</ul>
+</li>
+<li>Cutter implementation of Windows Heap (WIP)
+<ul>
+<li><a href="https://github.com/rizinorg/cutter/pull/2723">https://github.com/rizinorg/cutter/pull/2723</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="updates-to-types-widget-in-cutter">Updates to <code>Types</code> widget in Cutter</h3>
+<ul>
+<li>Rizin side changes
+<ul>
+<li><a href="https://github.com/rizinorg/rizin/pull/1402">https://github.com/rizinorg/rizin/pull/1402</a></li>
+<li><a href="https://github.com/rizinorg/rizin/pull/1393">https://github.com/rizinorg/rizin/pull/1393</a></li>
+</ul>
+</li>
+<li>Types Widget changes (WIP)
+<ul>
+<li><a href="https://github.com/rizinorg/cutter/tree/types-refactor">https://github.com/rizinorg/cutter/tree/types-refactor</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="misc-prs">Misc. PRs</h3>
+<ul>
+<li>Moved <code>dc</code> commands to newshell
+<ul>
+<li><a href="https://github.com/rizinorg/rizin/pull/1345">https://github.com/rizinorg/rizin/pull/1345</a></li>
+</ul>
+</li>
+<li>Update Rizin book
+<ul>
+<li><a href="https://github.com/rizinorg/book/pull/56">https://github.com/rizinorg/book/pull/56</a></li>
+</ul>
+</li>
+<li>Bug fixes
+<ul>
+<li><a href="https://github.com/rizinorg/rizin/pull/1439">https://github.com/rizinorg/rizin/pull/1439</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="what-to-do-next">What to do next?</h3>
+<ul>
+<li>Windows Heap Widget for Cutter renders too slowly which causes Cutter to hangup. I have an initial implementation of doing this computation in async manner but it has some bugs.<a href="https://github.com/PulakIIIT/cutter/commits/windows-heapp">Code</a></li>
+<li>The performance of windows heap commands in Rizin can also be improved. I have an implementation of this too but it is far from complete.<a href="https://github.com/rizinorg/rizin/tree/windows-heap-2">Code</a></li>
+<li>I did not have the time to look into the Jemalloc heap parser in depth but the Rizin implementation of it needs some changes including support for Jemalloc <code>5.x</code></li>
+</ul>
+
+
+
+
+      
+    </article>
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="https://github.com/PulakIIIT" name="Github">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&ndash;&nbsp;
+      <a href="mailto:pulakmalhotra2000@gmail.com" name="Email">
+        <em class="fas fa-envelope-square"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://pulakiiit.github.io/about">Pulak Malhotra</a>
+      &nbsp;&copy;
+      2021
+      
+        &nbsp;/&nbsp;
+        <a href="https://pulakiiit.github.io/">Ionia</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
