@@ -1,0 +1,17 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>GSOC on Ionia</title>
+		<link>https://pulakiiit.github.io/tags/gsoc/</link>
+		<description>Recent content in GSOC </description>
+		<generator>Hugo -- gohugo.io</generator>
+		
+  		<language>en-us</language>
+		
+		<managingEditor>Page(/tags/gsoc) (Pulak Malhotra)</managingEditor>
+    	
+  		<lastBuildDate>Tue, 17 Aug 2021 09:53:52 +0530</lastBuildDate>
+		
+		<atom:link href="/tags/gsoc/" rel="self" type="application/rss+xml" />
+		
+	</channel>
+</rss>
