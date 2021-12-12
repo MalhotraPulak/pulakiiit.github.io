@@ -1,77 +1,50 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
-  
-  <url>
-    <loc>https://pulakiiit.github.io/tags/gsoc/</loc>
-    <lastmod>2021-08-17T09:53:52+05:30</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://pulakiiit.github.io/posts/gsoc-report/</loc>
-    <lastmod>2021-08-17T09:53:52+05:30</lastmod>
-  </url>
-  
   <url>
     <loc>https://pulakiiit.github.io/</loc>
-    <lastmod>2021-08-17T09:53:52+05:30</lastmod>
-  </url>
-  
-  <url>
+    <lastmod>2021-12-12T18:57:50+05:30</lastmod>
+  </url><url>
     <loc>https://pulakiiit.github.io/posts/</loc>
+    <lastmod>2021-12-12T18:57:50+05:30</lastmod>
+  </url><url>
+    <loc>https://pulakiiit.github.io/posts/quotes/</loc>
+    <lastmod>2021-12-12T18:57:50+05:30</lastmod>
+  </url><url>
+    <loc>https://pulakiiit.github.io/tags/gsoc/</loc>
     <lastmod>2021-08-17T09:53:52+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
+    <loc>https://pulakiiit.github.io/posts/gsoc-report/</loc>
+    <lastmod>2021-08-17T09:53:52+05:30</lastmod>
+  </url><url>
     <loc>https://pulakiiit.github.io/tags/</loc>
     <lastmod>2021-08-17T09:53:52+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://pulakiiit.github.io/tags/heap/</loc>
     <lastmod>2021-05-19T14:56:11+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://pulakiiit.github.io/posts/reopen-bug/</loc>
     <lastmod>2021-05-19T14:56:11+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://pulakiiit.github.io/tags/systems/</loc>
     <lastmod>2021-05-19T14:56:11+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://pulakiiit.github.io/tags/glibc/</loc>
     <lastmod>2021-05-06T21:26:16+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://pulakiiit.github.io/posts/safe-linking/</loc>
     <lastmod>2021-05-06T21:26:16+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://pulakiiit.github.io/posts/heaps/</loc>
     <lastmod>2021-05-03T13:48:43+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://pulakiiit.github.io/posts/my-first-post/</loc>
     <lastmod>2020-12-06T14:19:41+05:30</lastmod>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://pulakiiit.github.io/about/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://pulakiiit.github.io/categories/</loc>
-  </url>
-  
-  <url>
+  </url><url>
     <loc>https://pulakiiit.github.io/series/</loc>
   </url>
-  
 </urlset>

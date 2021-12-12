@@ -32,9 +32,10 @@ This property led to a bug in Rizin. ood command reopens the current file in deb
 This property led to a bug in Rizin. ood command reopens the current file in debugging mode. The bug could be reproduced as follows:
  Open a file in debug mode Set a breakpoint and run the program Run any heap command like dmha Run ood to open the file in debug mode again Run till that breakpoint again Use any heap command like dmha  When you run the heap command for second time you will get incorrect output." />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://pulakiiit.github.io/posts/reopen-bug/" />
+<meta property="og:url" content="https://pulakiiit.github.io/posts/reopen-bug/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2021-05-19T14:56:11+05:30" />
 <meta property="article:modified_time" content="2021-05-19T14:56:11+05:30" />
+
 
 
 
@@ -58,7 +59,7 @@ This property led to a bug in Rizin. ood command reopens the current file in deb
 
 <script src="https://pulakiiit.github.io/js/main.bundle.js"></script>
 <script src="https://pulakiiit.github.io/js/instantpage.min.js" type="module" defer></script>
-<meta name="generator" content="Hugo 0.78.2" />
+<meta name="generator" content="Hugo 0.88.0" />
   </head>
   <body>
     
@@ -134,7 +135,7 @@ This property led to a bug in Rizin. <code>ood</code> command reopens the curren
 </ol>
 <p>When you run the heap command for second time you will get incorrect output.<br>
 Here is an example:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">[<span style="color:#058;font-weight:bold">0x7f2206989100</span>]<span style="color:#333">&gt;</span> db sym.stopper
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">[<span style="color:#058;font-weight:bold">0x7f2206989100</span>]<span style="color:#333">&gt;</span> db sym.stopper
 [<span style="color:#058;font-weight:bold">0x7f2206989100</span>]<span style="color:#333">&gt;</span> dc
 hit breakpoint <span style="color:#970;font-weight:bold">at</span>: <span style="color:#058;font-weight:bold">0x55d5ddfc11a9</span>
 [<span style="color:#058;font-weight:bold">0x55d5ddfc11a9</span>]<span style="color:#333">&gt;</span> dmha
@@ -175,7 +176,7 @@ main_arena <span style="color:#f00;background-color:#faa">@</span> <span style="
 </code></pre></div><p>We notice that the main arena location <code>0x7f2206989100</code> has <strong>NOT</strong> changed in the incorrect output. This means Rizin is trying to use the location of main arena from the previous time the binary was executed.<br>
 The fix for this issue was very simple, there is a boolean variable in rizin core as <code>core-&gt;debug-&gt;main_arena_resolved</code> that stores whether the main arena has already been calculated or not. This saves computation time for repeated heap commands. To fix the bug I set this variable to <code>false</code> during the <code>ood</code> command. Now, after running the <code>ood</code> command Rizin would once again calculate the main arena location which will be different due to ASLR.<br>
 Here is an example of correct output:</p>
-<div class="highlight"><pre style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">[<span style="color:#058;font-weight:bold">0x7f22eb4a1100</span>]<span style="color:#333">&gt;</span> db sym.stopper
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C" data-lang="C">[<span style="color:#058;font-weight:bold">0x7f22eb4a1100</span>]<span style="color:#333">&gt;</span> db sym.stopper
 [<span style="color:#058;font-weight:bold">0x7f22eb4a1100</span>]<span style="color:#333">&gt;</span> dc
 hit breakpoint <span style="color:#970;font-weight:bold">at</span>: <span style="color:#058;font-weight:bold">0x55f3039861a9</span>
 [<span style="color:#058;font-weight:bold">0x55f3039861a9</span>]<span style="color:#333">&gt;</span> dmha
