@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8" />
+<title>Insane</title>
+
+  <meta name="description" content="CSE undergraduate at IIITH" />
+
+
+  
+
+
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://pulakiiit.github.io/index.xml"
+  title="Ionia"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Insane"/>
+<meta name="twitter:description" content="#include&lt;iostream&gt;#include&lt;cstdlib&gt;using namespace std; class A { public: int a; A(){ a = 24; } auto f(){ a = 42; auto lambda = [=](){ cout &lt;&lt; a &lt;&lt; endl; }; return lambda; } }; int main(){ A *a = new A(); auto lambda = a-&gt;f(); delete a; A* b = new A(); lambda(); return 0; } Output:
+[I] ~/CPP ❯❯❯ g&#43;&#43; file.cpp -std=c&#43;&#43;20 &amp;&amp; ./a.out 24 "/>
+
+
+  <meta property="og:title" content="Insane" />
+<meta property="og:description" content="#include&lt;iostream&gt;#include&lt;cstdlib&gt;using namespace std; class A { public: int a; A(){ a = 24; } auto f(){ a = 42; auto lambda = [=](){ cout &lt;&lt; a &lt;&lt; endl; }; return lambda; } }; int main(){ A *a = new A(); auto lambda = a-&gt;f(); delete a; A* b = new A(); lambda(); return 0; } Output:
+[I] ~/CPP ❯❯❯ g&#43;&#43; file.cpp -std=c&#43;&#43;20 &amp;&amp; ./a.out 24 " />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://pulakiiit.github.io/posts/insane/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-11T23:28:09+05:30" />
+<meta property="article:modified_time" content="2022-11-11T23:28:09+05:30" />
+
+
+
+
+<link rel="stylesheet" href="https://pulakiiit.github.io/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://pulakiiit.github.io/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://pulakiiit.github.io/js/main.bundle.js"></script>
+<script src="https://pulakiiit.github.io/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.88.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://pulakiiit.github.io/" class="nav-logo">
+        <img
+          src="https://pulakiiit.github.io/images/ng_black.png"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="../../about/" id="About"
+              ><em class="far fa-user-circle fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="../../tags" id="Tags"
+              ><em class="fas fa-tags fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+    <div class="intro-header">
+      <div class="container">
+        <div class="posts-heading">
+          
+            <h1>
+              Insane
+            </h1>
+          
+          
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-C++" data-lang="C++"><span style="color:#579">#include</span><span style="color:#579">&lt;iostream&gt;</span><span style="color:#579">
+</span><span style="color:#579">#include</span><span style="color:#579">&lt;cstdlib&gt;</span><span style="color:#579">
+</span><span style="color:#579"></span><span style="color:#080;font-weight:bold">using</span> <span style="color:#080;font-weight:bold">namespace</span> std;
+
+<span style="color:#080;font-weight:bold">class</span> <span style="color:#b06;font-weight:bold">A</span> {
+<span style="color:#080;font-weight:bold">public</span><span style="color:#333">:</span>
+  <span style="color:#339;font-weight:bold">int</span> a;
+  A(){
+    a <span style="color:#333">=</span> <span style="color:#00d;font-weight:bold">24</span>;
+  }
+  <span style="color:#080;font-weight:bold">auto</span> <span style="color:#06b;font-weight:bold">f</span>(){ 
+    a <span style="color:#333">=</span> <span style="color:#00d;font-weight:bold">42</span>;
+    <span style="color:#080;font-weight:bold">auto</span> lambda <span style="color:#333">=</span> [<span style="color:#333">=</span>](){
+      cout <span style="color:#333">&lt;&lt;</span> a <span style="color:#333">&lt;&lt;</span> endl;
+    };
+    <span style="color:#080;font-weight:bold">return</span> lambda;
+  }
+};
+
+<span style="color:#339;font-weight:bold">int</span> <span style="color:#06b;font-weight:bold">main</span>(){
+  A <span style="color:#333">*</span>a <span style="color:#333">=</span> <span style="color:#080;font-weight:bold">new</span> A();
+  <span style="color:#080;font-weight:bold">auto</span> lambda <span style="color:#333">=</span> a<span style="color:#333">-&gt;</span>f();
+  <span style="color:#080;font-weight:bold">delete</span> a;
+  A<span style="color:#333">*</span> b <span style="color:#333">=</span> <span style="color:#080;font-weight:bold">new</span> A();
+  lambda();
+  <span style="color:#080;font-weight:bold">return</span> <span style="color:#00d;font-weight:bold">0</span>;
+}
+</code></pre></div><p>Output:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[I] ~/CPP ❯❯❯ g++ file.cpp -std=c++20 &amp;&amp; ./a.out
+24
+</code></pre></div>
+
+
+
+      
+    </article>
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="https://github.com/PulakIIIT" name="Github">
+        <em class="fab fa-github"></em>
+      </a>
+    
+       &nbsp;&ndash;&nbsp;
+      <a href="mailto:pulakmalhotra2000@gmail.com" name="Email">
+        <em class="fas fa-envelope-square"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://pulakiiit.github.io/about">Pulak Malhotra</a>
+      &nbsp;&copy;
+      2022
+      
+        &nbsp;/&nbsp;
+        <a href="https://pulakiiit.github.io/">Ionia</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+      Powered By <a href="https://gohugo.io">Hugo</a>&nbsp;
+      Theme
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
