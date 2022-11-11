@@ -22,13 +22,13 @@
 />
 <meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Insane"/>
-<meta name="twitter:description" content="#include&lt;iostream&gt;#include&lt;cstdlib&gt;using namespace std; class A { public: int a; A(){ a = 24; } auto f(){ a = 42; auto lambda = [=](){ cout &lt;&lt; a &lt;&lt; endl; }; return lambda; } }; int main(){ A *a = new A(); auto lambda = a-&gt;f(); delete a; A* b = new A(); lambda(); return 0; } Output:
-[I] ~/CPP ❯❯❯ g&#43;&#43; file.cpp -std=c&#43;&#43;20 &amp;&amp; ./a.out 24 "/>
+<meta name="twitter:description" content="#include&lt;iostream&gt;#include&lt;cstdlib&gt;using namespace std; class A { public: int a; A(int x){ a = x; } A(){ a = 24; } auto f(){ a = 42; auto lambda = [=](){ cout &lt;&lt; a &lt;&lt; endl; }; return lambda; } }; int main(){ A *a = new A(); auto lambda = a-&gt;f(); delete a; A* b = new A(0); lambda(); return 0; } Output:
+[I] ~/CPP ❯❯❯ g&#43;&#43; file.cpp -std=c&#43;&#43;20 &amp;&amp; ./a.out 0 "/>
 
 
   <meta property="og:title" content="Insane" />
-<meta property="og:description" content="#include&lt;iostream&gt;#include&lt;cstdlib&gt;using namespace std; class A { public: int a; A(){ a = 24; } auto f(){ a = 42; auto lambda = [=](){ cout &lt;&lt; a &lt;&lt; endl; }; return lambda; } }; int main(){ A *a = new A(); auto lambda = a-&gt;f(); delete a; A* b = new A(); lambda(); return 0; } Output:
-[I] ~/CPP ❯❯❯ g&#43;&#43; file.cpp -std=c&#43;&#43;20 &amp;&amp; ./a.out 24 " />
+<meta property="og:description" content="#include&lt;iostream&gt;#include&lt;cstdlib&gt;using namespace std; class A { public: int a; A(int x){ a = x; } A(){ a = 24; } auto f(){ a = 42; auto lambda = [=](){ cout &lt;&lt; a &lt;&lt; endl; }; return lambda; } }; int main(){ A *a = new A(); auto lambda = a-&gt;f(); delete a; A* b = new A(0); lambda(); return 0; } Output:
+[I] ~/CPP ❯❯❯ g&#43;&#43; file.cpp -std=c&#43;&#43;20 &amp;&amp; ./a.out 0 " />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://pulakiiit.github.io/posts/insane/" /><meta property="article:section" content="posts" />
 <meta property="article:published_time" content="2022-11-11T23:28:09+05:30" />
@@ -128,6 +128,9 @@
 <span style="color:#080;font-weight:bold">class</span> <span style="color:#b06;font-weight:bold">A</span> {
 <span style="color:#080;font-weight:bold">public</span><span style="color:#333">:</span>
   <span style="color:#339;font-weight:bold">int</span> a;
+  A(<span style="color:#339;font-weight:bold">int</span> x){
+    a <span style="color:#333">=</span> x;
+  }
   A(){
     a <span style="color:#333">=</span> <span style="color:#00d;font-weight:bold">24</span>;
   }
@@ -144,13 +147,13 @@
   A <span style="color:#333">*</span>a <span style="color:#333">=</span> <span style="color:#080;font-weight:bold">new</span> A();
   <span style="color:#080;font-weight:bold">auto</span> lambda <span style="color:#333">=</span> a<span style="color:#333">-&gt;</span>f();
   <span style="color:#080;font-weight:bold">delete</span> a;
-  A<span style="color:#333">*</span> b <span style="color:#333">=</span> <span style="color:#080;font-weight:bold">new</span> A();
+  A<span style="color:#333">*</span> b <span style="color:#333">=</span> <span style="color:#080;font-weight:bold">new</span> A(<span style="color:#00d;font-weight:bold">0</span>);
   lambda();
   <span style="color:#080;font-weight:bold">return</span> <span style="color:#00d;font-weight:bold">0</span>;
 }
 </code></pre></div><p>Output:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">[I] ~/CPP ❯❯❯ g++ file.cpp -std=c++20 &amp;&amp; ./a.out
-24
+0
 </code></pre></div>
 
 
